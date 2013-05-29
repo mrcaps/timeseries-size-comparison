@@ -1,0 +1,14 @@
+src/financedb.hpp
+inc/financedb
+bin/comparison*
+lib
+etc
+.cproject
+.project
+.settings
+CMakeLists.private.txt
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CMakeFiles
+Debug

@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 2.6)
+set(Sources src/comparison.cpp inc/sqlite3.c)
+add_executable(bin/comparison ${Sources})
+include(CheckIncludeFile)
+include(CheckIncludeFiles)
+
+find_package(Threads)
+if(THREADS_FOUND)
+  target_link_libraries(bin/comparison ${CMAKE_THREAD_LIBS_INIT})
+endif(THREADS_FOUND)
+
+check_include_file(dlfcn.h DL_FOUND)
+if(DL_FOUND)
+  target_link_libraries(bin/comparison ${CMAKE_DL_LIBS})
+endif(DL_FOUND)
