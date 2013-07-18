@@ -29,7 +29,7 @@ int check_exec(sqlite3* db, const char *sql) {
 /**
  * Open a new sqlite db at the given file
  */
-sqlite3* new_sqlite_db(const char* output) {
+sqlite3* new_sqlite_db(const char *output) {
 	sqlite3 *db;
 	int rc = sqlite3_open(output, &db);
 	if (rc) {
@@ -84,7 +84,7 @@ void insert_sqlite(Data data, int twidth, int vwidth, const char* output) {
 				*it +
 				string(" VALUES(?1, ?2)");
 		const char *buf = isql.c_str();
-		sqlite3_stmt* stmt;
+		sqlite3_stmt *stmt;
 		sqlite3_prepare_v2(db, buf, strlen(buf), &stmt, NULL);
 
 		if (!ts.good()) {
@@ -132,7 +132,7 @@ void insert_sqlite(Data data, int twidth, int vwidth, const char* output) {
  * @param output sqlite file location to write
  */
 void insert_sqlite_multi(DataMulti data, int twidth, int vwidth, const char* output) {
-	sqlite3* db = new_sqlite_db(output);
+	sqlite3 *db = new_sqlite_db(output);
 
 	for (map<string, set<string> >::const_iterator it = data.begin(); it != data.end(); ++it) {
 		long ninserts = 0;
@@ -208,12 +208,12 @@ void insert_sqlite_multi(DataMulti data, int twidth, int vwidth, const char* out
 			for (unsigned i = 0; i < vs.size(); ++i) {
 				if (!vs[i]->good()) {
 					++n_vstream_failures;
-					vs[i]->read(vbufs[i], vwidth);
-					sqlite3_bind_int(stmt, i+2, *((int*) vbufs[i]));
-				} else {
 					//XXX: do something better about missing value stream entries?
 					// for now insert zero
 					sqlite3_bind_int(stmt, i+2, 0);
+				} else {
+					vs[i]->read(vbufs[i], vwidth);
+					sqlite3_bind_int(stmt, i+2, *((int*) vbufs[i]));
 				}
 			}
 

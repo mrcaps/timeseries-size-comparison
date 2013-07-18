@@ -14,7 +14,7 @@ using namespace std;
 /**
  * @brief Collect opentsdb metric names to the given output stream
  */
-void print_opentsdb_metrics(Data data, ostream& fout) {
+void print_opentsdb_metrics(Data data, ostream &fout) {
 	stringstream ss;
 	int metricdx = 0;
 	for (set<string>::const_iterator it = data.begin(); it != data.end(); ++it) {
@@ -28,7 +28,7 @@ void print_opentsdb_metrics(Data data, ostream& fout) {
  * @brief Collect opentsdb metric names to the given output stream
  *  for metrics used with print_opentsdb_inserts_multi
  */
-void print_opentsdb_metrics_multi(DataMulti data, ostream& fout) {
+void print_opentsdb_metrics_multi(DataMulti data, ostream &fout) {
 	stringstream ss;
 	int metricdx = 0;
 	for (map<string, set<string> >::const_iterator it = data.begin(); it != data.end(); ++it) {

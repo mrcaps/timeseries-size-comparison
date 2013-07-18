@@ -19,6 +19,7 @@
 #include "data.hpp"
 #include "opentsdb.hpp"
 #include "sqlite.hpp"
+#include "csv.hpp"
 
 #ifdef HAS_FINANCEDB
 #include "financedb.hpp"
@@ -33,7 +34,7 @@ using namespace std;
 void usage(char** argv) {
 	cout << "Usage: " << argv[0] << " [fn] [args]" << endl;
 	cout << "  if [fn] is test, run basic tests." << endl;
-	cout << "  if [fn] is ins_{sqlite,financedb,opentsdb}_multi, [args] = " << endl;
+	cout << "  if [fn] is ins_{sqlite,financedb,opentsdb,csv}_multi, [args] = " << endl;
 	cout << "    2: timestamp directory" << endl;
 	cout << "    3: values directory" << endl;
 	cout << "    4: timestamp merge map" << endl;
@@ -57,10 +58,13 @@ int main(int argc, char** argv) {
 	int vwidth = 4;
 
 	if (fn == "test") {
+		/*
 		test_datamulti();
 		test_mergemap();
 		test_opentsdb_multi();
 		test_insert_sqlite_multi();
+		*/
+		test_insert_csv_multi();
 	} else if (fn == "ins_sqlite_multi") {
 		DataMulti data(argv[2], argv[3], getMergeMap(argv[4]));
 		insert_sqlite_multi(data, twidth, vwidth, argv[5]);
@@ -75,9 +79,12 @@ int main(int argc, char** argv) {
 		DataMulti dm(argv[2], argv[3], getMergeMap(argv[4]));
 		Data wrapper(dm);
 		print_opentsdb_inserts(wrapper, twidth, vwidth);
-	} if (fn == "ins_financedb_multi") {
+	} else if (fn == "ins_financedb_multi") {
 		DataMulti data(argv[2], argv[3], getMergeMap(argv[4]));
 		insert_financedb_multi(data, twidth, vwidth);
+	} else if (fn == "ins_csv_multi") {
+		DataMulti data(argv[2], argv[3], getMergeMap(argv[4]));
+		insert_csv_multi(data, twidth, vwidth, argv[5]);
 	}
 
 	return 0;

@@ -43,7 +43,7 @@ enum StreamT { TS, VS };
 class DataMulti {
 private:
 	void init() {
-		DIR* dir;
+		DIR *dir;
 		struct dirent *ent;
 		if (NULL != (dir = opendir(tsdir))) {
 			while (NULL != (ent = readdir(dir))) {
@@ -67,7 +67,7 @@ public:
 	map<string, set<string> > merge;
 	const char* tsdir;
 	const char* vsdir;
-	DataMulti(const char* _tsdir, const char* _vsdir,
+	DataMulti(const char *_tsdir, const char *_vsdir,
 			map<string, set<string> > _merge) :
 				merge(_merge), tsdir(_tsdir), vsdir(_vsdir) {
 
@@ -92,8 +92,8 @@ public:
  */
 class Data {
 private:
-	const char* tsdir;
-	const char* vsdir;
+	const char *tsdir;
+	const char *vsdir;
 	set<string> diritems;
 
 	bool isMulti;
@@ -101,7 +101,7 @@ private:
 	map<string, string> *revmap;
 
 	void init() {
-		DIR* dir;
+		DIR *dir;
 		struct dirent *ent;
 		if (NULL != (dir = opendir(tsdir))) {
 			while (NULL != (ent = readdir(dir))) {
